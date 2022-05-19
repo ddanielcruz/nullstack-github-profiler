@@ -1,23 +1,26 @@
-import Nullstack, { NullstackClientContext } from 'nullstack';
-import './Application.css';
-import Home from './Home';
+import Nullstack, { NullstackClientContext } from 'nullstack'
+
+import './Application.scss'
+
+import Explorer from './Explorer'
 
 declare function Head(): typeof Application.prototype.renderHead
 
 class Application extends Nullstack {
-
   prepare({ page }: NullstackClientContext) {
-    page.locale = 'en-US';
+    page.locale = 'en-US'
   }
 
-  renderHead() {
+  renderHead({ project }: NullstackClientContext) {
     return (
       <head>
+        <title>{project.name}</title>
         <link
-          href="https://fonts.gstatic.com" rel="preconnect" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Roboto&display=swap"
-          rel="stylesheet" />
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous"
+        />
       </head>
     )
   }
@@ -26,11 +29,10 @@ class Application extends Nullstack {
     return (
       <main>
         <Head />
-        <Home route="/" />
+        <Explorer route="/" />
       </main>
     )
   }
-
 }
 
-export default Application;
+export default Application

@@ -1,0 +1,11 @@
+.repositories {
+  .repository + .repository {
+    margin-top: 1.5rem;
+  }
+
+  .repository {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
