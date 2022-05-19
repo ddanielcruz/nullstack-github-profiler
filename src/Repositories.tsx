@@ -21,7 +21,7 @@ function openRepository(url: string) {
 
 export default function Repositories({ repositories }: RepositoriesProps) {
   return (
-    <div class="repositories mt-4 mb-4">
+    <div class="repositories pt-4 pb-4">
       {repositories.map((repo) => (
         <div class="repository card shadow-sm" onclick={() => openRepository(repo.html_url)}>
           <div class="card-body">

@@ -11,19 +11,25 @@ interface ProfilerProps extends NullstackClientContext {
 export default class Profiler extends Nullstack<ProfilerProps> {
   private profile = ''
   private repositories = []
+  private isLoading = false
 
   private async loadRepositories() {
     if (!this.profile) {
       return
     }
 
-    const response = await fetch(`https://api.github.com/users/${this.profile}/repos`)
-    this.repositories = await response.json()
+    try {
+      this.isLoading = true
+      const response = await fetch(`https://api.github.com/users/${this.profile}/repos`)
+      this.repositories = await response.json()
+    } finally {
+      this.isLoading = false
+    }
   }
 
   render() {
     return (
-      <section class="Profiler container col-4 mt-5">
+      <section class="Profiler container col-4 pt-5">
         <div className="row">
           <div className="col">
             <h1 class="mb-4">Explore GitHub profiles!</h1>
@@ -38,6 +44,7 @@ export default class Profiler extends Nullstack<ProfilerProps> {
                 placeholder="Search for a GitHub profile"
                 aria-label="Search for a GitHub profile"
                 bind={this.profile}
+                disabled={this.isLoading}
               />
               <button class="btn btn-primary" type="submit" id="button-addon2">
                 Button
