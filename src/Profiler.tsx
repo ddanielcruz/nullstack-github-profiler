@@ -8,6 +8,8 @@ interface ProfilerProps extends NullstackClientContext {
   route: string
 }
 
+declare function Spinner(): typeof Profiler.prototype.renderSpinner
+
 export default class Profiler extends Nullstack<ProfilerProps> {
   private profile = ''
   private repositories = []
@@ -20,16 +22,25 @@ export default class Profiler extends Nullstack<ProfilerProps> {
 
     try {
       this.isLoading = true
+
       const response = await fetch(`https://api.github.com/users/${this.profile}/repos`)
-      this.repositories = await response.json()
+      this.repositories = response.ok ? await response.json() : []
     } finally {
       this.isLoading = false
     }
   }
 
+  renderSpinner() {
+    return (
+      <div class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading repositories...</span>
+      </div>
+    )
+  }
+
   render() {
     return (
-      <section class="Profiler container col-4 pt-5">
+      <section class="profiler container col-4 pt-5">
         <div className="row">
           <div className="col">
             <h1 class="mb-4">Explore GitHub profiles!</h1>
@@ -46,8 +57,8 @@ export default class Profiler extends Nullstack<ProfilerProps> {
                 bind={this.profile}
                 disabled={this.isLoading}
               />
-              <button class="btn btn-primary" type="submit" id="button-addon2">
-                Button
+              <button class="btn btn-primary" type="submit" disabled={this.isLoading}>
+                {this.isLoading ? <Spinner /> : 'Search'}
               </button>
             </div>
           </form>

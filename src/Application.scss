@@ -4,9 +4,10 @@
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
-  background-color: #fafafa !important;
 }
 
 body {
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #f9f9f9 !important;
 }
