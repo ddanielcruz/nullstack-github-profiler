@@ -2,7 +2,7 @@ import Nullstack, { NullstackClientContext } from 'nullstack'
 
 import './Application.scss'
 
-import Explorer from './Explorer'
+import Profiler from './Profiler'
 
 declare function Head(): typeof Application.prototype.renderHead
 
@@ -29,7 +29,7 @@ class Application extends Nullstack {
     return (
       <main>
         <Head />
-        <Explorer route="/" />
+        <Profiler route="/" />
       </main>
     )
   }
